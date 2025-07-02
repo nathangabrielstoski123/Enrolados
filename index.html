@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>História Interativa - Enrolados</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top, #fddde6, #fff1f9);
+      color: #4b2e2e;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .botoes {
+      margin-top: 20px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #f4c2c2;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #f79ca9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Enrolados: Uma História Interativa ✨</h1>
+    <p id="historia"></p>
+    <div id="opcoes" class="botoes"></div>
+  </div>
+
+  <script>
+    const historia = document.getElementById("historia");
+    const opcoes = document.getElementById("opcoes");
+
+    const cenas = {
+      inicio: {
+        texto: "Rapunzel vive trancada em uma torre com sua mãe, mas sonha em ver as luzes flutuantes que aparecem todo ano em seu aniversário. O que ela deve fazer?",
+        opcoes: [
+          { texto: "Fugir da torre", destino: "fuga" },
+          { texto: "Ficar com a mãe", destino: "ficar" }
+        ]
+      },
+      fuga: {
+        texto: "Ela foge com a ajuda de Flynn Rider! Eles enfrentam perigos juntos e se aproximam. Mas... confiar em Flynn é seguro?",
+        opcoes: [
+          { texto: "Sim, confiar em Flynn", destino: "finalBom" },
+          { texto: "Não, fugir sozinha", destino: "finalRuim" }
+        ]
+      },
+      ficar: {
+        texto: "Ela decide ficar, mas algo dentro dela continua inquieto... será que ela fez a escolha certa?",
+        opcoes: [
+          { texto: "Mudar de ideia e fugir!", destino: "fuga" },
+          { texto: "Aceitar sua vida na torre", destino: "fimTriste" }
+        ]
+      },
+      finalBom: {
+        texto: "Rapunzel descobre a verdade, reencontra seus pais e vive feliz no reino com Flynn! 💖",
+        opcoes: []
+      },
+      finalRuim: {
+        texto: "Ela se perde sozinha na floresta e é capturada de novo... 😢",
+        opcoes: []
+      },
+      fimTriste: {
+        texto: "Rapunzel vive uma vida segura, mas sempre com um vazio em seu coração... 🌧️",
+        opcoes: []
+      }
+    };
+
+    function mostrarCena(nome) {
+      const cena = cenas[nome];
+      historia.textContent = cena.texto;
+      opcoes.innerHTML = "";
+
+      cena.opcoes.forEach(op => {
+        const botao = document.createElement("button");
+        botao.textContent = op.texto;
+        botao.onclick = () => mostrarCena(op.destino);
+        opcoes.appendChild(botao);
+      });
+    }
+
+    mostrarCena("inicio");
+  </script>
+</body>
+</html>
